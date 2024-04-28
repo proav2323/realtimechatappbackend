@@ -19,3 +19,5 @@ io.on("connection", (socket) => {
 httpServer.listen(3000, () => {
   console.log("listening on port 3000");
 });
+
+module.exports = httpServer;
