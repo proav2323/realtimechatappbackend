@@ -7,7 +7,9 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-var serviceAccount = require("./auth/auth.json");
+var serviceAccount = require(process.env.NODE_ENV === "development"
+  ? "./auth/auth.json"
+  : "auth.json");
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
