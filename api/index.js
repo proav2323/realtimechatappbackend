@@ -35,6 +35,7 @@ app.post("/send", async (req, res) => {
     } else {
       admin.messaging().send({
         token: reciver.data["token"],
+        topic: "chat",
         android: {
           priority: "high",
           data: {
