@@ -35,9 +35,17 @@ app.post("/send", async (req, res) => {
     } else {
       admin
         .messaging()
-        .send({
-          token: reciver.get("token"),
+        .sendEachForMulticast({
+          tokens: reciver.get("token"),
+          notification: {
+            title: sender.get("name"),
+            body: message,
+          },
           android: {
+            notification: {
+              title: sender.get("name"),
+              body: message,
+            },
             priority: "high",
             data: {
               reciver: reciverId,
