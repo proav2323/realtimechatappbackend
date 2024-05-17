@@ -41,7 +41,6 @@ app.post("/send", async (req, res) => {
           data: {
             reciver: reciverId,
             senderId,
-            senderId,
             message: message,
             type: "chat",
           },
@@ -49,10 +48,64 @@ app.post("/send", async (req, res) => {
         data: {
           reciver: reciverId,
           senderId,
-          senderId,
           message: message,
           type: "chat",
         },
+      });
+
+      res.status(200).send("notifcations send");
+    }
+  }
+});
+
+app.post("/sendGroup", async (req, res) => {
+  const { groupId, senderId, message } = req.body;
+
+  if (!groupId || !senderId || !message) {
+    res.status(404).send("bad req");
+  } else {
+    const group = await admin
+      .firestore()
+      .collection("groups")
+      .doc(groupId)
+      .get();
+    const sender = await admin
+      .firestore()
+      .collection("users")
+      .doc(senderId)
+      .get();
+
+    if (!sender || !group) {
+      res.status(404).send("bad req");
+    } else {
+      const members = group.data["members"].filter((data) => data != sender.id);
+      members.forEach((data) => {
+        const reciver = admin
+          .firestore()
+          .collection("users")
+          .doc(data)
+          .get()
+          .then((rec) => {
+            admin.messaging().send({
+              token: rec.data["token"],
+              topic: "chat",
+              android: {
+                priority: "high",
+                data: {
+                  reciver: data,
+                  senderId,
+                  message: message,
+                  type: "group",
+                },
+              },
+              data: {
+                reciver: data,
+                senderId,
+                message: message,
+                type: "group",
+              },
+            });
+          });
       });
 
       res.status(200).send("notifcations send");
