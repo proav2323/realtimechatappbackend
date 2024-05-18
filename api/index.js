@@ -107,14 +107,12 @@ app.post("/sendGroup", async (req, res) => {
             },
           priority: "high",
           data: {
-            reciver: data,
             senderId,
             message: message,
             type: "group",
           },
         },
         data: {
-          reciver: data,
           senderId,
           message: message,
           type: "group",
