@@ -109,7 +109,7 @@ app.post("/sendGroup", async (req, res) => {
           data: {
             senderId,
             groupId: groupId,
-            chatLastMessage: group.get("chatLastMessage"),
+            chatLastMessage: group.get("lastMessage"),
             message: message,
             type: "group",
           },
@@ -117,7 +117,7 @@ app.post("/sendGroup", async (req, res) => {
         data: {
           senderId,
           groupId: groupId,
-          chatLastMessage: group.get("chatLastMessage"),
+          chatLastMessage: group.get("lastMessage"),
           message: message,
           type: "group",
         },
