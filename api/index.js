@@ -96,7 +96,15 @@ app.post("/sendGroup", async (req, res) => {
     } else {
       admin.messaging().sendEachForMulticast({
         tokens: memberTokens,
+                    notification: {
+              title: group.get("name"),
+              body: message,
+            },
         android: {
+                              notification: {
+              title: group.get("name"),
+              body: message,
+            },
           priority: "high",
           data: {
             reciver: data,
