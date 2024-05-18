@@ -31,7 +31,7 @@ app.post("/send", async (req, res) => {
       .get();
 
     if (!sender || !reciver) {
-      res.status(404).send("bad req");
+      res.status(404).send("bad req not reciver");
     } else {
       admin
         .messaging()
