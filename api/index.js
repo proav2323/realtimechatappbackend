@@ -17,6 +17,9 @@ app.post("/send", async (req, res) => {
   const { reciverId, senderId, message } = req.body;
 
   if (!reciverId || !senderId || !message) {
+    console.log(reciverId);
+    console.log(senderId);
+    console.lof(message);
     res.status(404).send("bad req");
   } else {
     const reciver = await admin
